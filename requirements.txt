@@ -1,7 +1,7 @@
 alembic==1.16.4
 altair==4.2.2
 annotated-types==0.7.0
-anyio==4.10.0
+anyio==3.7.1
 appnope==0.1.4
 asttokens==3.0.0
 attrs==25.3.0
@@ -24,12 +24,13 @@ distro==1.9.0
 docker==7.1.0
 entrypoints==0.4
 executing==2.2.0
-fastapi==0.115.0
+fastapi==0.110.0
 Flask==3.1.1
 fonttools==4.59.0
 gitdb==4.0.12
 GitPython==3.1.45
-gradio
+gradio==4.20.0
+gradio_client==0.11.0
 graphene==3.4.3
 graphql-core==3.2.6
 graphql-relay==3.2.0
@@ -54,7 +55,7 @@ kiwisolver==1.4.8
 lightgbm==4.6.0
 Mako==1.3.10
 Markdown==3.8.2
-MarkupSafe==3.0.2
+MarkupSafe==2.1.5
 marshmallow==3.26.1
 matplotlib==3.10.5
 matplotlib-inline==0.1.7
@@ -70,7 +71,7 @@ pandas==2.1.4
 parso==0.8.4
 patsy==1.0.1
 pexpect==4.9.0
-pillow==11.3.0
+pillow==10.4.0
 platformdirs==4.3.8
 pluggy==1.6.0
 posthog==6.5.0
@@ -81,8 +82,8 @@ ptyprocess==0.7.0
 pure_eval==0.2.3
 pyarrow==15.0.2
 pycparser==2.22
-pydantic==2.8.2
-pydantic_core==2.20.1
+pydantic==2.6.4
+# pydantic_core==2.16.3
 Pygments==2.19.2
 pyparsing==3.2.3
 pytest==8.3.2
@@ -106,7 +107,7 @@ sniffio==1.3.1
 SQLAlchemy==2.0.42
 sqlparse==0.5.3
 stack-data==0.6.3
-starlette==0.38.6
+starlette==0.36.3
 statsmodels==0.14.5
 threadpoolctl==3.6.0
 toolz==1.0.0
@@ -122,3 +123,4 @@ wcwidth==0.2.13
 Werkzeug==3.1.3
 xgboost==3.0.3
 zipp==3.23.0
+huggingface_hub==0.21.4
