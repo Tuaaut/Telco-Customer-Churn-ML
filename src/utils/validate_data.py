@@ -1,5 +1,6 @@
 import great_expectations as ge
 from typing import Tuple, List
+import pandas as pd
 
 
 def validate_telco_data(df) -> Tuple[bool, List[str]]:
@@ -12,6 +13,16 @@ def validate_telco_data(df) -> Tuple[bool, List[str]]:
     
     """
     print("🔍 Starting data validation with Great Expectations...")
+
+    # Work on a copy so validation can safely normalize types without mutating callers.
+    df = df.copy()
+    df.columns = df.columns.str.strip()
+
+    # The raw Telco dataset often stores TotalCharges as text because of blank values.
+    # Coerce numeric validation columns before applying GE range expectations.
+    for col in ["tenure", "MonthlyCharges", "TotalCharges"]:
+        if col in df.columns:
+            df[col] = pd.to_numeric(df[col], errors="coerce")
     
     # Convert pandas DataFrame to Great Expectations Dataset
     ge_df = ge.dataset.PandasDataset(df)

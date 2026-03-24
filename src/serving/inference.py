@@ -27,6 +27,7 @@ Production Deployment:
 import os
 import pandas as pd
 import mlflow
+import json
 
 # === MODEL LOADING CONFIGURATION ===
 # IMPORTANT: This path is set during Docker container build
@@ -60,10 +61,31 @@ except Exception as e:
 # CRITICAL: Load the exact feature column order used during training
 # This ensures the model receives features in the expected order
 try:
-    feature_file = os.path.join(MODEL_DIR, "feature_columns.txt")
-    with open(feature_file) as f:
-        FEATURE_COLS = [ln.strip() for ln in f if ln.strip()]
-    print(f"✅ Loaded {len(FEATURE_COLS)} feature columns from training")
+    feature_candidates = [
+        os.path.join(MODEL_DIR, "feature_columns.txt"),
+        os.path.join(os.path.dirname(MODEL_DIR), "feature_columns.txt"),
+        os.path.join(".", "artifacts", "feature_columns.json"),
+    ]
+
+    FEATURE_COLS = None
+    for feature_file in feature_candidates:
+        if not os.path.exists(feature_file):
+            continue
+
+        if feature_file.endswith(".json"):
+            with open(feature_file) as f:
+                FEATURE_COLS = json.load(f)
+        else:
+            with open(feature_file) as f:
+                FEATURE_COLS = [ln.strip() for ln in f if ln.strip()]
+
+        print(f"✅ Loaded {len(FEATURE_COLS)} feature columns from {feature_file}")
+        break
+
+    if FEATURE_COLS is None:
+        raise FileNotFoundError(
+            f"No feature schema found in any of: {feature_candidates}"
+        )
 except Exception as e:
     raise Exception(f"Failed to load feature columns: {e}")
 

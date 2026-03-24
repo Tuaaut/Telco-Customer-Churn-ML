@@ -55,7 +55,7 @@ def main(args):
         print(f"✅ Data loaded: {df.shape[0]} rows, {df.shape[1]} columns")
 
         # === CRITICAL: Data Quality Validation ===
-        # This step is ESSENTIAL for production ML - validates data quality before training
+        # Validate raw data before feature prep; validator handles numeric coercion it needs
         print("🔍 Validating data quality with Great Expectations...")
         is_valid, failed = validate_telco_data(df)
         mlflow.log_metric("data_quality_pass", int(is_valid))  # Track data quality over time
